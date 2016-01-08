@@ -41,11 +41,19 @@ function init_rand(mat, m, n) {
     }
 }
 
+function init_single(mat, m, n, val) {
+    for (var i=0; i<m; i++){
+        for (var j=0; j<n; j++) {
+            mat[i][j] = val;
+        }
+    }
+}
+
 function print_matrix(mat, m, n){
     for (var i=0; i<m; i++){
         log("<br/>");
         for (var j=0; j<n; j++) {
-            log(" "+mat[i][j]+" ");
+            log(" "+Math.round(mat[i][j])+" ");
         }
     }
 }
@@ -63,4 +71,14 @@ function multiply_matrix(mat1, mat2, m, n, p) {
         }
     }
     return mat3;
+}
+
+function duplicate_matrix(mat, m, n) {
+    var mat2 = create_matrix(m, n);
+    for (var i=0; i<m; i++){
+        for (var j=0; j<n; j++) {
+            mat2[i][j] = mat[i][j];
+        }
+    }
+    return mat2;
 }

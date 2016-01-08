@@ -4,7 +4,7 @@
 
 "use strict";
 
-function main() {
+function mat_test_main() {
     var m = 3, n = 4, p = 5;
     
     var mymat1 = create_matrix(m, n);
@@ -22,6 +22,6 @@ function main() {
     log("<br/><br/>The product of the above two matrices is: ");
     print_matrix(mymat3, m, p);
 
-    log("<br/><br/>- - - End of Matrix Test - - -");
+    log("<br/><br/>- - - End of Matrix Test - - -<br/>");
 }
 

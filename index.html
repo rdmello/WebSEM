@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
         <title>WebSEM Project</title>
         <!--<script type="text/javascript" src="d3.min.js"></script>-->
         <script type="text/javascript" src="support.js"></script>
         <script type="text/javascript" src="matrix_test.js"></script>
+        <script type="text/javascript" src="fd_sim_2D.js"></script>
         <style type="text/css">
             #debug{
                 background: black;
@@ -14,10 +16,11 @@
             }
         </style>
     </head>
-    <body onload="main()">
+    <body onload="mat_test_main(); fd_sim_2D_main();">
         <p>Hello! This is the homepage for the WebSEM project<br/></p>
         <p>It is a little basic right now, but it'll be filled soon (:</p>
-        <p id="debug">Debug Window: <br/></p>
+        
+        <p id="debug"><strong>Debug Window: <br/></strong></p>
 
 
 
