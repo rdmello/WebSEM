@@ -8,3 +8,8 @@ Client-side Galerkin Spectral Element Method Solver Implemented Using Javascript
 
 2. UI and plotting
 
+
+Friday, Jan 8 2015: Migrated to shaynedmello.com for better access and development environment
+
+
+
