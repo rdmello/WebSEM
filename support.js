@@ -50,12 +50,14 @@ function init_single(mat, m, n, val) {
 }
 
 function print_matrix(mat, m, n){
+    var mystr = "";
     for (var i=0; i<m; i++){
-        log("<br/>");
+        mystr+="<br/>";
         for (var j=0; j<n; j++) {
-            log(" "+Math.round(mat[i][j])+" ");
+            mystr+=" "+Math.round(mat[i][j])+" ";
         }
     }
+    log(mystr);
 }
 
 function multiply_matrix(mat1, mat2, m, n, p) {
@@ -81,4 +83,19 @@ function duplicate_matrix(mat, m, n) {
         }
     }
     return mat2;
+}
+
+function canvas_map(mat, m, n, minval, maxval) {
+    var r = document.getElementById("display");
+    var s = r.getContext("2d");
+    var h=r.height, w=r.width; 
+    var dh=Math.floor(h/m), dw=Math.floor(w/n);
+    var val = 0;
+    for (var i=0; i<m; i++){
+        for (var j=0; j<n; j++) {
+            val = ((mat[i][j]-minval)/(maxval-minval));
+            s.fillStyle = "rgb("+Math.floor(255*val)+",1,"+Math.floor(255*(1-val))+")";
+            s.fillRect(i*dh,j*dw,dh,dw);
+        }
+    }
 }
