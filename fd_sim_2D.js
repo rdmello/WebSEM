@@ -28,15 +28,16 @@ function fd_sim_2D_main() {
     var numiter = 100;
     var plottime=100;
 
-    var Ti = create_matrix(m, n); init_single(Ti, m, n, T_init); //Initial Temp
+    var Ti = create_matrix(m, n); 
+    init_single(Ti, m, n, T_init); //Initial Temp
     for (var j=0; j<n; j++) {
         Ti[0][j]=T_edge;
         Ti[m-1][j]=T_edge;
     }
 
     for (var i=0; i<m; i++) {
-        Ti[i][0]=T_edge;
-        Ti[i][n-1]=T_edge;
+        Ti[i][0]=T_init;
+        Ti[i][n-1]=T_init;
     }
 
     log("<br/>Scaling Factor is: " +alpha*dt/dx/dx);
@@ -47,6 +48,7 @@ function fd_sim_2D_main() {
     var T = duplicate_matrix(Ti, m, n);
     var Tb = duplicate_matrix(Ti, m, n);
     var t0 = performance.now();
+    var t1 = performance.now();
     var mult = alpha*dt/dx/dx;
 
     function main_iterator(stage) {
@@ -57,27 +59,20 @@ function fd_sim_2D_main() {
                     T[i][j]=Tb[i][j]+(mult*(Tb[i+1][j]+Tb[i-1][j]+Tb[i][j+1]+Tb[i][j-1]-(4*Tb[i][j])));
                 }
             }
-   
             Tb = duplicate_matrix(T, m, n);
         }
-        console.log("In stage "+stage);
+        log("<br/>In stage "+stage);
         canvas_map(T, m, n, 273, 373);
         if(stage<Math.floor(maxiter/numiter)) {
             setTimeout(function(){main_iterator(stage)}, plottime);
         } else {
-            log("Simulation Completed");
+            t1 = performance.now();
+            log("<br/>Simulation Completed");
+            log("<br/>Time taken for "+maxiter+" iterations is: "+(t1-t0)+" milliseconds.");
+            log("<br/><br/>----- End of 2D Finite Difference Test -----");
         }
     }
 
     setTimeout(function(){main_iterator(0)}, plottime);
-    var t1 = performance.now();
-    
-    //log("<br/>Iter: "+iter);
-    //print_matrix(T, m, n);
-    //canvas_map(T, m, n, 273, 373);
-
-    //log("<br/>Time taken for "+iter+" iterations is: "+(t1-t0)+" milliseconds.");
-
-    log("<br/><br/>----- End of 2D Finite Difference Test -----");
 }
 
