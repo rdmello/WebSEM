@@ -13,7 +13,8 @@
 "use strict";
 
 function fd_sim_2D_main() {
-
+    
+    initialize_canvas();
     // Discretization variables
     var m_int = 100, n_int = 100; var m=m_int+2, n=n_int+2; 
     // Problem variables
@@ -42,7 +43,7 @@ function fd_sim_2D_main() {
 
     log("<br/>Scaling Factor is: " +alpha*dt/dx/dx);
     log("<br/>Initialization Complete. IC (incl. boundary) is: ");
-    canvas_map(Ti, m, n, 273, 373);
+    canvas_map_hd(Ti, m, n, 273, 373);
     //print_matrix(Ti, m, n);
 
     var T = duplicate_matrix(Ti, m, n);
@@ -62,7 +63,7 @@ function fd_sim_2D_main() {
             Tb = duplicate_matrix(T, m, n);
         }
         log("<br/>In stage "+stage);
-        canvas_map(T, m, n, 273, 373);
+        canvas_map_hd(T, m, n, 273, 373);
         if(stage<Math.floor(maxiter/numiter)) {
             setTimeout(function(){main_iterator(stage)}, plottime);
         } else {
