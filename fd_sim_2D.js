@@ -5,8 +5,9 @@
 // (1) Domain: 2D, with x and y: 0 m to 1 m.
 // (2) Initial Condition: Domain initialized with T = 373 K;
 // (3) Boundary Condition: T = 273 K; 
-// (4) Governing Equation: Diffusion: dT/dt = alpha*(d2T/dx2+d2T/dy2); 
+// (4) Governing Equation: Diffusion: dT/dt + c*dT/dx= alpha*(d2T/dx2+d2T/dy2); 
 // (5) Thermal Diffusivity, alpha: 1.27*(10^-4) m2/s;
+// (6) Convection: Wavespeed: c: 0.1 m/s;
 // (6) To find: time to reach Steady State. 
 // (7) Also plot the max temp vs time
 
@@ -19,6 +20,7 @@ function fd_sim_2D_main() {
     var m_int = 100, n_int = 100; var m=m_int+2, n=n_int+2; 
     // Problem variables
     var alpha=1.27e-4; // m2/s
+    var c=0.001; // m/s
     var T_edge = 273; // K
     var T_init = 373; // K
     var x_min=0, x_max=1, y_min=0, y_max=1; // meters
@@ -57,7 +59,19 @@ function fd_sim_2D_main() {
         for (var iter=0; iter<numiter; iter++) {
             for (var i=1; i<m-1; i++){
                 for (var j=1; j<n-1; j++){
-                    T[i][j]=Tb[i][j]+(mult*(Tb[i+1][j]+Tb[i-1][j]+Tb[i][j+1]+Tb[i][j-1]-(4*Tb[i][j])));
+                    T[i][j]=Tb[i][j]+(
+                            dt*(
+                                    (alpha*(
+                                        ((Tb[i+1][j]-2*Tb[i][j]+Tb[i-1][j])/dx/dx)+
+                                        ((Tb[i][j+1]-2*Tb[i][j]+Tb[i][j-1])/dy/dy)
+                                    ))
+                                    -(c*(
+                                        ((Tb[i+1][j]-Tb[i-1][j])/2/dx)+
+                                        ((Tb[i][j+1]-Tb[i][j-1])/2/dy)
+                                        )
+                                     )
+                                )
+                            );
                 }
             }
             Tb = duplicate_matrix(T, m, n);

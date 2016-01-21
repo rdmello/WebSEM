@@ -16,4 +16,11 @@ Live Demo is available online at https://shaynedmello.com/r/WebSEM/index.html
 Friday, Jan 8 2015: Migrated to shaynedmello.com for better access and development environment
 
 
+Thursday, Jan 21 2015: Adding Convection
+
+
+## Todo:
+
+1. Fix incorrect bilinear interpolation used
+
 
